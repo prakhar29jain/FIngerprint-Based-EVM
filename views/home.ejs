@@ -2,56 +2,61 @@
 
 <div class="album py-5 bg-light">
     <div class="container">
+      <div class="row" id="electionsRow" >
 
-      <div class="row">
-        <button type="submit" class="btn btn-sm col-md-4"> 
+<!-- Lopping through the db for the different types of elections.   -->
+        <% for(var i = 0; i< allValues.length ;i++){ %>
+          <button type="submit" class="btn btn-sm col-md-4"> 
           <div class="card box-shadow">
             <div class="card-body">
-                <h3>Election 2023</h3>
-              <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <h3 class="eleTitle"><%= allValues[i].Name%></h3>
+              <p class="card-text"><%=allValues[i].description%></p>
             </div>
         </div>
         </button>
-
-        <button type="submit" class="btn btn-sm col-md-4 "> 
-            <div class="card box-shadow">
-              <div class="card-body">
-                  <h3>Election 2023</h3>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              </div>
-          </div>
-          </button>
-
-          <button type="submit" class="btn btn-sm col-md-4 "> 
-            <div class="card box-shadow">
-              <div class="card-body">
-                  <h3>Election 2023</h3>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              </div>
-          </div>
-          </button>
-
-          <button type="submit" class="btn btn-sm col-md-4 "> 
-            <div class="card box-shadow">
-              <div class="card-body">
-                  <h3>Election 2023</h3>
-                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
-              </div>
-          </div>
-          </button>
-
+        <% } %>
       </div>
     </div>
   </div>
 
+<!-- Adding a new election type in the db. -->
+
+<form action="/home" method="post">
+  <input type="text" name="electionName">
+  <input type="text" name="electionDescription">
+  <button class="btn btn-md btn-outline-secondary" type="submit">Add Election</button>
+</form>
+  
+
+
 
 <script>
-    console.log("Hi");
-    document.querySelectorAll(".btn")[0].addEventListener("click", buttonClick);
-    
-    function buttonClick(){
-    window.location.href = "http://localhost:3000/elections/assembly";
-};
+
+//Template for different elections.
+const buttons = document.querySelectorAll('.btn-sm');
+buttons.forEach(button => {
+  button.addEventListener('click', () => {
+    const h3Tags = button.querySelectorAll('h3');
+    h3Tags.forEach(h3 => {
+      window.location.href = "http://localhost:3000/elections/" + h3.textContent;
+    });
+  });
+});
+
+//Script for adding new election in the db.
+// const btnAdd = document.querySelector(".btn-outline-secondary");
+// const electionParent = document.getElementById("electionsRow");
+// btnAdd.addEventListener("click", addElection);
+// const btnHtml = '<div class="card box-shadow"><div class="card-body"><h3 class="eleTitle">Pecfest Convener Elections 2020</h3><p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p></div></div>';
+
+// function addElection(){
+//   const newElection = document.createElement("button");
+//   newElection.classList.add("btn" ,"btn-sm", "col-md-4");
+//   newElection.innerHTML = btnHtml;
+//   console.log("added");
+//   electionParent.appendChild(newElection);
+// }
+
 </script>
 
 <%- include('partials/footer'); -%>
