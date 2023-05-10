@@ -1,0 +1,70 @@
+<%- include('partials/header'); -%>
+
+
+<h1><%= eleName %></h1>
+
+  <table class="table">
+    <thead class="table-warning"> 
+      <tr>
+        <th scope="col"></th>
+        <th scope="col">Name</th>
+        <th scope="col">Gender</th>
+        <th scope="col">Area</th>
+        <th scope="col">Party</th>
+        <th scope="col">Cast Vote</th>
+      </tr>
+    </thead>
+    <tbody>
+    <% for(var i = 0; i< allValues.length ;i++){ %>
+      <tr>
+        <th scope="row">
+            <% i %>
+        </th>
+        <td><%=allValues[i].name%></td>
+        <td><%=allValues[i].gender%></td>
+        <td><%=allValues[i].area%></td>
+        <td><%=allValues[i].party%></td>
+        <td><button class="voteSubmit" type="submit">✅</button></td>
+      </tr>
+      <% } %>
+    </tbody>
+  </table>
+
+
+<button id="openPopupBtn">Add Candidate</button>
+
+ <div id="popup" class="popup">
+   <form action="/elections/<%= eleName %>" method="post" class="popup-content">
+     <span class="close" id="closePopup">&times;</span>
+     <h2>Enter Candidate Details</h2>
+     <label for="name"><b>Name</b></label>
+     <input type="text"  name="name" required>
+     <label for="gender"><b>Gender</b></label>
+     <input type="text" name="gender" required>
+     <label for="area"><b>Area</b></label>
+     <input type="text" name="area" required>
+     <label for="party"><b>Party</b></label>
+     <input type="text"  name="party" required>
+     <button id="submitBtn">Submit</button>
+   </form>
+ </div>
+
+ <script>
+document.getElementById('openPopupBtn').addEventListener('click', function() {
+  document.getElementById('popup').style.display = 'block';
+});
+
+document.getElementById('closePopup').addEventListener('click', function() {
+  document.getElementById('popup').style.display = 'none';
+});
+
+document.getElementById('submitBtn').addEventListener('click', function() {
+  document.getElementById('popup').style.display = 'none';
+});
+
+document.querySelector("voteSubmit").addEventListener("click",function(){
+  
+});
+
+ </script>
+<%- include('partials/footer'); -%>

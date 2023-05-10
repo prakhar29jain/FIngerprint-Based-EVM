@@ -1,15 +1,15 @@
 <%- include('partials/header'); -%>
 
-<div class="album py-5 bg-light">
+<div >
     <div class="container">
       <div class="row" id="electionsRow" >
 
 <!-- Lopping through the db for the different types of elections.   -->
         <% for(var i = 0; i< allValues.length ;i++){ %>
-          <button type="submit" class="btn btn-sm col-md-4"> 
+          <button type="submit" class="election-btn btn btn-sm col-md-4"> 
           <div class="card box-shadow">
             <div class="card-body">
-                <h3 class="eleTitle"><%= allValues[i].Name%></h3>
+              <h3 class="eleTitle"><%= allValues[i].Name%></h3>
               <p class="card-text"><%=allValues[i].description%></p>
             </div>
         </div>
@@ -21,11 +21,25 @@
 
 <!-- Adding a new election type in the db. -->
 
-<form action="/home" method="post">
+<!-- <form action="/home" method="post">
   <input type="text" name="electionName">
   <input type="text" name="electionDescription">
   <button class="btn btn-md btn-outline-secondary" type="submit">Add Election</button>
-</form>
+</form> -->
+
+<button id="openPopupBtn">Add Election</button>
+
+<div id="popup" class="popup">
+  <form action="/home" method="post" class="popup-content">
+    <span class="close" id="closePopup">&times;</span>
+    <h2>Enter Election Details</h2>
+    <label for="name"><b>Name</b></label>
+    <input type="text"  name="electionName" required>
+    <label for="gender"><b>Description</b></label>
+    <input type="text" name="electionDescription" required>
+    <button id="submitBtn">Submit</button>
+  </form>
+</div>
   
 
 
@@ -43,19 +57,21 @@ buttons.forEach(button => {
   });
 });
 
-//Script for adding new election in the db.
-// const btnAdd = document.querySelector(".btn-outline-secondary");
-// const electionParent = document.getElementById("electionsRow");
-// btnAdd.addEventListener("click", addElection);
-// const btnHtml = '<div class="card box-shadow"><div class="card-body"><h3 class="eleTitle">Pecfest Convener Elections 2020</h3><p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p></div></div>';
+document.getElementById('openPopupBtn').addEventListener('click', function() {
+  document.getElementById('popup').style.display = 'block';
+});
 
-// function addElection(){
-//   const newElection = document.createElement("button");
-//   newElection.classList.add("btn" ,"btn-sm", "col-md-4");
-//   newElection.innerHTML = btnHtml;
-//   console.log("added");
-//   electionParent.appendChild(newElection);
-// }
+document.getElementById('closePopup').addEventListener('click', function() {
+  document.getElementById('popup').style.display = 'none';
+});
+
+document.getElementById('submitBtn').addEventListener('click', function() {
+  const inputFieldValue = document.getElementById('inputField').value;
+  console.log('Input value:', inputFieldValue);
+  document.getElementById('popup').style.display = 'none';
+});
+
+
 
 </script>
 
